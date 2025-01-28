@@ -1,0 +1,42 @@
+[
+  {
+    "model": "courses_lessons.course",
+    "pk": 2,
+    "fields": {
+      "name": "Algebra",
+      "description": null,
+      "preview": ""
+    }
+  },
+  {
+    "model": "courses_lessons.course",
+    "pk": 3,
+    "fields": {
+      "name": "Music",
+      "description": null,
+      "preview": ""
+    }
+  },
+  {
+    "model": "courses_lessons.lesson",
+    "pk": 1,
+    "fields": {
+      "name": "lesson1",
+      "description": null,
+      "preview": "",
+      "video": null,
+      "course": 2
+    }
+  },
+  {
+    "model": "courses_lessons.lesson",
+    "pk": 2,
+    "fields": {
+      "name": "lesson2",
+      "description": null,
+      "preview": "",
+      "video": null,
+      "course": 2
+    }
+  }
+]
