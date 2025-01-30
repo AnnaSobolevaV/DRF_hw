@@ -1,5 +1,9 @@
 from django.db import models
 
+from django.contrib.auth import get_user_model
+
+from config import settings
+
 
 class Course(models.Model):
     name = models.CharField(
@@ -10,6 +14,15 @@ class Course(models.Model):
     )
     preview = models.ImageField(
         upload_to="courses/preview/", verbose_name="превью", blank=True, null=True
+    )
+    #settings.AUTH_USER_MODEL
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Владелец",
+        help_text=""
     )
 
     class Meta:
@@ -39,7 +52,15 @@ class Lesson(models.Model):
         null=True,
         on_delete=models.SET_NULL,
         verbose_name="Курс",
-        help_text="",
+        help_text=""
+    )
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Владелец",
+        help_text=""
     )
 
     class Meta:
