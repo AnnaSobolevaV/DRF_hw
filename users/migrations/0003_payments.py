@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("courses_lessons", "0001_initial"),
         ("users", "0002_alter_user_options_remove_user_username_user_avatar_and_more"),

@@ -83,3 +83,29 @@ class Payments(models.Model):
 
     def __str__(self):
         return f'{self.user} {self.payment_amount} {self.payment_date}'
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(
+        User,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Пользователь",
+        help_text=""
+    )
+    course = models.ForeignKey(
+        Course,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name="курс",
+        help_text=""
+    )
+
+    class Meta:
+        verbose_name = "Подписка на обновления курса"
+        verbose_name_plural = "Подписка на обновления курса"
+
+    def __str__(self):
+        return f'{self.user} {self.course}'
