@@ -144,7 +144,6 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", False) == "True"
 EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", False) == "True"
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':
         ['rest_framework_simplejwt.authentication.JWTAuthentication'],
