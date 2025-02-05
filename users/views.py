@@ -9,8 +9,10 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from courses_lessons.models import Course
-from users.models import User, Payments, Subscription
-from users.serializers import UserSerializer, PaymentsSerializer, MyTokenObtainPairSerializer, SubscriptionSerializer
+from users.models import User, Payments, Subscription, PaymentCard
+from users.serializers import UserSerializer, PaymentsSerializer, MyTokenObtainPairSerializer, SubscriptionSerializer, \
+    PaymentCardSerializer
+from users.services import create_stripe_price, create_stripe_session, create_stripe_product
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -69,3 +71,17 @@ class SubscriptionAPIView(APIView):
             new_subs.save()
             message = 'подписка добавлена'
         return Response({"message": message})
+
+
+class PaymentCardCreateAPIView(CreateAPIView):
+    queryset = PaymentCard.objects.all()
+    serializer_class = PaymentCardSerializer
+
+    def perform_create(self, serializer):
+        payment = serializer.save(user=self.request.user)
+        product_id = create_stripe_product(payment.course.name)
+        price = create_stripe_price(payment.amount, product_id)
+        session_id, link = create_stripe_session(price)
+        payment.session_id = session_id
+        payment.link = link
+        payment.save()

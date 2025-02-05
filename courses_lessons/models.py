@@ -1,7 +1,5 @@
 from django.db import models
 
-from django.contrib.auth import get_user_model
-
 from config import settings
 
 
@@ -15,7 +13,7 @@ class Course(models.Model):
     preview = models.ImageField(
         upload_to="courses/preview/", verbose_name="превью", blank=True, null=True
     )
-    # settings.AUTH_USER_MODEL
+
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         blank=True,
