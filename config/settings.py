@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "rest_framework_simplejwt",
+    "drf_yasg",
+    "drf_spectacular",
     "users",
     "courses_lessons",
 ]
@@ -145,6 +147,7 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", False) == "True"
 EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", False) == "True"
 
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES':
         ['rest_framework_simplejwt.authentication.JWTAuthentication'],
     'DEFAULT_PERMISSION_CLASSES':
@@ -157,3 +160,13 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
+
+STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")

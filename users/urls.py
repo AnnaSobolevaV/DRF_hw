@@ -5,7 +5,8 @@ from django.urls import path
 from rest_framework.routers import SimpleRouter
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from users.views import UserViewSet, PaymentsListAPIView, MyTokenObtainPairView, UserCreateAPIView, PasswordResetAPIView
+from users.views import UserViewSet, PaymentsListAPIView, MyTokenObtainPairView, UserCreateAPIView, \
+    PasswordResetAPIView, PaymentCardCreateAPIView
 
 app_name = UsersConfig.name
 
@@ -18,6 +19,7 @@ urlpatterns = [
     path('login/', MyTokenObtainPairView.as_view(permission_classes=(AllowAny,)), name='login'),
     path("payments/", PaymentsListAPIView.as_view(), name="Payments_list"),
     path('token/refresh/', TokenRefreshView.as_view(permission_classes=(AllowAny,)), name='token_refresh'),
+    path('payment_card/', PaymentCardCreateAPIView.as_view(), name="payment_card")
 ]
 
 urlpatterns += router.urls

@@ -1,3 +1,5 @@
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
@@ -23,9 +25,11 @@ class CourseSerializer(ModelSerializer):
     def get_lessons(self, course):
         return [lesson.name for lesson in Lesson.objects.filter(course=course)]
 
+    @extend_schema_field(OpenApiTypes.INT)
     def get_count_lessons(self, course):
         return Lesson.objects.filter(course=course).count()
 
+    @extend_schema_field(OpenApiTypes.BOOL)
     def get_subscription(self, course):
         user = self.context['request'].user
         return Subscription.objects.filter(user=user, course=course).exists()

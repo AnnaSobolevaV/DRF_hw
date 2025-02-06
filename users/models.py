@@ -109,3 +109,47 @@ class Subscription(models.Model):
 
     def __str__(self):
         return f'{self.user} {self.course}'
+
+
+class PaymentCard(models.Model):
+    amount = models.PositiveIntegerField(
+        verbose_name="Сумма платежа",
+        help_text="Сумма платежа"
+    )
+    session_id = models.CharField(
+        verbose_name="id сессии",
+        help_text="",
+        blank=True,
+        null=True,
+        max_length=255
+    )
+    link = models.URLField(
+        verbose_name="ссылка на оплату",
+        help_text="",
+        blank=True,
+        null=True,
+        max_length=400
+    )
+    user = models.ForeignKey(
+        User,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Пользователь",
+        help_text=""
+    )
+    course = models.ForeignKey(
+        Course,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name="курс",
+        help_text=""
+    )
+
+    class Meta:
+        verbose_name = "Оплата картой"
+        verbose_name_plural = "Оплата картой"
+
+    def __str__(self):
+        return f'{self.amount}'
