@@ -1,11 +1,10 @@
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from courses_lessons.models import Course, Lesson
 from courses_lessons.paginators import CourseLessonPagination
 from courses_lessons.serializers import CourseSerializer, LessonSerializer
+from courses_lessons.tasks import course_updated_send_email
 from users.permissions import IsModer, IsOwner
 
 
@@ -13,6 +12,11 @@ class CourseViewSet(ModelViewSet):
     pagination_class = CourseLessonPagination
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        course_updated_send_email.delay(course.pk)
+        course.save()
 
     def get(self, request):
         queryset = Course.objects.all()
@@ -48,6 +52,8 @@ class LessonCreateAPIView(CreateAPIView):
     def perform_create(self, serializer):
         lesson = serializer.save()
         lesson.owner = self.request.user
+        if lesson.course:
+            course_updated_send_email.delay(lesson.course.pk)
         lesson.save()
 
 
@@ -74,6 +80,12 @@ class LessonUpdateAPIView(UpdateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = (IsAuthenticated, IsModer | IsOwner)
+
+    def perform_update(self, serializer):
+        lesson = serializer.save()
+        if lesson.course:
+            course_updated_send_email.delay(lesson.course.pk)
+        lesson.save()
 
 
 class LessonDestroyAPIView(DestroyAPIView):

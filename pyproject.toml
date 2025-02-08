@@ -18,6 +18,9 @@ drf-yasg = "^1.21.8"
 drf-spectacular = "^0.28.0"
 stripe = "^11.5.0"
 forex-python = "^1.8"
+celery = "^5.4.0"
+django-celery-beat = "^2.7.0"
+redis = "^5.2.1"
 
 
 [tool.poetry.group.dev.dependencies]
