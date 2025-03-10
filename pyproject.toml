@@ -21,6 +21,8 @@ forex-python = "^1.8"
 celery = "^5.4.0"
 django-celery-beat = "^2.7.0"
 redis = "^5.2.1"
+gunicorn = "^23.0.0"
+django-redis = "^5.4.0"
 
 
 [tool.poetry.group.dev.dependencies]
