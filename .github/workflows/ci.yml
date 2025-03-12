@@ -52,6 +52,7 @@ jobs:
             echo "Waiting for PostgreSQL..."
             sleep 1
           done
+          pg_ctl -D /var/lib/postgresql/data -l logfile start
       - name: Run migrations
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY}}
