@@ -37,9 +37,6 @@ jobs:
 
       redis:
         image: redis:latest
-        env:
-          REDIS_HOST: redis://localhost:6379/3
-
         ports:
           - 6379:6379
 
@@ -74,6 +71,13 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
         run: python manage.py migrate
 
+      - name: Wait for Redis
+        run: |
+          until nc -z localhost 6379; do
+            echo "Waiting for Redis..."
+            sleep 1
+          done
+
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY}}
@@ -83,7 +87,7 @@ jobs:
           HOST: localhost
           PORT: 5432
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
-          REDIS_HOST: redis://localhost:6379/3
+          REDIS_HOST: redis://localhost:6379
           CELERY_BROKER_URL: redis://localhost:6379
           CELERY_RESULT_BACKEND: redis://localhost:6379
         run: python manage.py test
