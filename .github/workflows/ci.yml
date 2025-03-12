@@ -78,10 +78,6 @@ jobs:
             sleep 1
           done
 
-      - name: Apt-get update
-        run:
-          sudo apt-get update && sudo apt-get install -y gcc libpq-dev && sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
-
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY}}
