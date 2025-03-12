@@ -39,11 +39,6 @@ jobs:
       - name: Run migrations
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY}}
-          DB_NAME='curs8_drf_hw'
-          DB_USER='postgres'
-          DB_PASSWORD='12345678'
-          HOST='db'
-          PORT='5432'
         run: python manage.py migrate
       - name: Run tests
         run: python manage.py test
