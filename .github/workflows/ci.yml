@@ -77,7 +77,7 @@ jobs:
         env:
           REDIS_HOST: redis://redis:6379/3
 
-        run: redis-server
+        run: redis-cli ping
 
       - name: Run tests
         env:
