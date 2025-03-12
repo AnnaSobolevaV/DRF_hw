@@ -52,10 +52,15 @@ jobs:
             echo "Waiting for PostgreSQL..."
             sleep 1
           done
-          pg_ctl -D /var/lib/postgresql/data -l logfile start
+
       - name: Run migrations
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY}}
+          DB_NAME: test_db
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          HOST: localhost
+          PORT: 5432
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
         run: python manage.py migrate
 
