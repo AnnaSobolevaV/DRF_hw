@@ -117,14 +117,14 @@ jobs:
       - name: Check SSH_KEY
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
-        run: echo ${{ SSH_KEY }}
+        run: echo $SSH_KEY
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.4
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
         with:
-          ssh-private-key: ${{ SSH_KEY }}
+          ssh-private-key: SSH_KEY
 
 
       - name: Deploy to Server
