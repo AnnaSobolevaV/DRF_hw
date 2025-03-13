@@ -124,7 +124,7 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
         with:
-          ssh-private-key: SSH_KEY
+          ssh-private-key: $SSH_KEY
 
 
       - name: Deploy to Server
