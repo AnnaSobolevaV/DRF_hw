@@ -118,7 +118,6 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
         run: echo $SSH_KEY
-
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.4
         with:
