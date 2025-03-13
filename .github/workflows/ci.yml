@@ -114,10 +114,14 @@ jobs:
     needs: build
 
     steps:
+      - name: Check SSH_KEY
+        run: echo ${{ secrets.SSH_KEY }}
+
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
+
 
       - name: Deploy to Server
         run: |
