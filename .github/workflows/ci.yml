@@ -137,14 +137,13 @@ jobs:
       - name: Deploy to Server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          cd ${{ secrets.DEPLOY_DIR }}
-          ssh echo "${{ secrets.ENV_FILE }}" > .env << 'EOF'
-          
-          docker stop courses_app || true
-          docker rm courses_app || true
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/courses_app:${{ github.sha }}
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/nginx:${{ github.sha }}            
-          sudo docker compose up -d --build
-
+            cd ${{ secrets.DEPLOY_DIR }}
+            ssh echo "${{ secrets.ENV_FILE }}" > .env
+            
+            docker stop courses_app || true
+            docker rm courses_app || true
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/courses_app:${{ github.sha }}
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/nginx:${{ github.sha }}            
+            sudo docker compose up -d --build
           EOF
         
