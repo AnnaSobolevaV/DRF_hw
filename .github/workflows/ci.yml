@@ -37,6 +37,15 @@ jobs:
 
       redis:
         image: redis:latest
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY}}
+          DB_NAME: test_db
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          HOST: localhost
+          PORT: 5432
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+          REDIS_HOST: redis://localhost:6379/1
         ports:
           - 6379:6379
 
@@ -104,7 +113,7 @@ jobs:
         run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }} .
+        run: docker-compose up -d --build ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }} .
 
       - name: Push Docker image to Docker Hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
