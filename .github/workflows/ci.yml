@@ -137,7 +137,8 @@ jobs:
       - name: Deploy to Server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-            cd ${{ secrets.DEPLOY_DIR }}            
+            cd ${{ secrets.DEPLOY_DIR }}  
+          
             docker stop courses_app || true
             docker rm courses_app || true
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/courses_app:${{ github.sha }}
