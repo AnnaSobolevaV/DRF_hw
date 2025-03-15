@@ -25,7 +25,7 @@ services:
       - "6379"
 
   courses_app:
-    image: ${{ secrets.DOCKER_HUB_USERNAME }}/courses_app:latest
+    build: .
     command: bash -c "python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:8000"
 
     volumes:
@@ -40,7 +40,8 @@ services:
       - .env
 
   nginx:
-    image: ${{ secrets.DOCKER_HUB_USERNAME }}/nginx:latest
+    build:
+      context: ./nginx
     ports:
       - "80:80"
     volumes:
