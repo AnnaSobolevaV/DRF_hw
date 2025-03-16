@@ -43,7 +43,7 @@
 Настроен автоматический деплой с предварительными проверками и тестами, блокирующими 
 дальнейший деплой при неудачном исходе.
 Для этого настроен файл GitHub Actions workflow .
-Автоматический деплой настроен для ветки hw_32_2.
+Автоматический деплой настроен для ветки hw_35_2.
 
 Для настройки удаленного сервера и ручного деплоя приложения необходимо выполнить следующие шаги:
 - настроить виртуальную машину например на платформе Yandex Cloud. (Проект реализован для ОС Ubuntu.)
@@ -59,7 +59,7 @@
   - sudo ufw allow 443/tcp
   - sudo apt update 
   - sudo apt install git 
-  - git clone --branch hw_32_2 https://github.com/AnnaSobolevaV/DRF_hw.git
+  - git clone --branch hw_35_2 https://github.com/AnnaSobolevaV/DRF_hw.git
   - cd DRF_hw
 - файл с переменными окружения (.env.exmpl) необходимо заполнить и сохранить с именем .env
   - sudo docker compose up -d --build
