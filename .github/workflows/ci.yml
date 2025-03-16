@@ -140,7 +140,7 @@ jobs:
             cd ${{ secrets.DEPLOY_DIR }}
             sudo docker compose down 
             cd ..
-            rm - rf ${{ secrets.DEPLOY_DIR }}
+            rm -rf ${{ secrets.DEPLOY_DIR }}
             git clone --branch hw_32_2 https://github.com/AnnaSobolevaV/DRF_hw.git
             cd ${{ secrets.DEPLOY_DIR }}  
             sudo docker compose up -d --build
