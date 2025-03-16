@@ -38,11 +38,20 @@
 2. после того как образ соберется и запустится контейнер с сервисами, успешность можно проверить командой:
    docker-compose ps
    с помощью которой можно увидеть запущенные сервисы:
+       Name                      Command                  State                        Ports                  
+---------------------------------------------------------------------------------------------------------------
+drf_hw-celery-1        celery -A config worker -l ...   Up             8000/tcp                                
+drf_hw-celery-beat-1   celery -A config beat -l INFO    Up             8000/tcp                                
+drf_hw-courses_app-1   bash -c python manage.py c ...   Up             0.0.0.0:8000->8000/tcp,:::8000->8000/tcp
+drf_hw-db-1            docker-entrypoint.sh postgres    Up (healthy)   5432/tcp                                
+drf_hw-nginx-1         /docker-entrypoint.sh ngin ...   Up             0.0.0.0:80->80/tcp,:::80->80/tcp        
+drf_hw-redis-1         docker-entrypoint.sh redis ...   Up             6379/tcp                                
+
 
 Проект развернут на внешнем сервере с IP 158.160.177.235
 Настроен автоматический деплой с предварительными проверками и тестами, блокирующими
 дальнейший деплой при неудачном исходе.
-Для этого настроен файл GitHub Actions workflow .
+Для этого настроен файл GitHub Actions workflow - ci.yml.
 Автоматический деплой настроен для ветки hw_35_2.
 
 Для настройки удаленного сервера и ручного деплоя приложения необходимо выполнить следующие шаги:
