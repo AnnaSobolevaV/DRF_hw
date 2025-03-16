@@ -47,17 +47,17 @@ class CourseTestCase(APITestCase):
         self.assertEqual(response.json()['name'], 'autoTestNew')
         self.assertEqual(Course.objects.count(), 2)
 
-    # def test_course_update(self):
-    #     url = reverse("courses_lessons:course-detail", args=(self.course.pk,))
-    #     data = {"name": "autoTestUpdate"}
-    #     response = self.client.patch(url, data)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.json(), {'id': self.course.pk, 'subscription': False, 'count_lessons': 1,
-    #     'lessons': [
-    #         {'id': self.lesson.pk, 'name': 'autoTestLesson', 'description': None, 'preview': None, 'video': None,
-    #          'course': self.course.pk,
-    #          'owner': self.user.pk}], 'name': 'autoTestUpdate', 'description': None, 'preview': None,
-    #                                        'owner': self.user.pk})
+    def test_course_update(self):
+        url = reverse("courses_lessons:course-detail", args=(self.course.pk,))
+        data = {"name": "autoTestUpdate"}
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json(), {'id': self.course.pk, 'subscription': False, 'count_lessons': 1,
+        'lessons': [
+            {'id': self.lesson.pk, 'name': 'autoTestLesson', 'description': None, 'preview': None, 'video': None,
+             'course': self.course.pk,
+             'owner': self.user.pk}], 'name': 'autoTestUpdate', 'description': None, 'preview': None,
+                                           'owner': self.user.pk})
 
     def test_course_delete(self):
         url = reverse("courses_lessons:course-detail", args=(self.course.pk,))
@@ -99,14 +99,14 @@ class LessonTestCase(APITestCase):
         self.assertEqual(response.json()['name'], 'autoTestNew')
         self.assertEqual(Lesson.objects.count(), 2)
 
-    # def test_lesson_update(self):
-    #     url = reverse("courses_lessons:lesson_update", args=(self.lesson.pk,))
-    #     data = {"name": "autoTestUpdate"}
-    #     response = self.client.patch(url, data)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.json(),
-    #                      {'id': self.lesson.pk, 'name': 'autoTestUpdate', 'description': None, 'preview': None,
-    #                       'video': None, 'course': self.course.pk, 'owner': self.user.pk})
+    def test_lesson_update(self):
+        url = reverse("courses_lessons:lesson_update", args=(self.lesson.pk,))
+        data = {"name": "autoTestUpdate"}
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json(),
+                         {'id': self.lesson.pk, 'name': 'autoTestUpdate', 'description': None, 'preview': None,
+                          'video': None, 'course': self.course.pk, 'owner': self.user.pk})
 
     def test_lesson_delete(self):
         url = reverse("courses_lessons:lesson_delete", args=(self.lesson.pk,))
