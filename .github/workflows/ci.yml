@@ -62,9 +62,6 @@ jobs:
         run: |
           pip install poetry && poetry config virtualenvs.create false &&  poetry install --no-root
 
-      - name: upgrade redis
-        run: |
-          poetry add redis@latest
 
       - name: Wait for PostgreSQL
         run: |
