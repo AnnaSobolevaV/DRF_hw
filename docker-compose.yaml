@@ -19,6 +19,8 @@ services:
     volumes:
       - redis_data:/data
     restart: on-failure
+    environment:
+      - REDIS_HOST==redis://redis:6379/3
     env_file:
       - .env
     expose:
