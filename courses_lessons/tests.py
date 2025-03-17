@@ -30,10 +30,13 @@ class CourseTestCase(APITestCase):
         url = reverse("courses_lessons:course-detail", args=(self.course.pk,))
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json(), {'id': self.course.pk, 'subscription': False, 'count_lessons': 1, 'lessons': [
-            {'id': self.lesson.pk, 'name': 'autoTestLesson', 'description': None, 'preview': None, 'video': None,
-             'course': self.course.pk,
-             'owner': self.user.pk}], 'name': 'autoTestCourse', 'description': None, 'preview': None,
+        self.assertEqual(response.json(), {'id': self.course.pk, 'subscription': False, 'count_lessons': 1,
+                                           'lessons': [
+                                               {'id': self.lesson.pk, 'name': 'autoTestLesson', 'description': None,
+                                                'preview': None, 'video': None,
+                                                'course': self.course.pk,
+                                                'owner': self.user.pk}], 'name': 'autoTestCourse', 'description': None,
+                                           'preview': None,
                                            'owner': self.user.pk})
 
     def test_course_create(self):
@@ -49,10 +52,13 @@ class CourseTestCase(APITestCase):
         data = {"name": "autoTestUpdate"}
         response = self.client.patch(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json(), {'id': self.course.pk, 'subscription': False, 'count_lessons': 1, 'lessons': [
-            {'id': self.lesson.pk, 'name': 'autoTestLesson', 'description': None, 'preview': None, 'video': None,
-             'course': self.course.pk,
-             'owner': self.user.pk}], 'name': 'autoTestUpdate', 'description': None, 'preview': None,
+        self.assertEqual(response.json(), {'id': self.course.pk, 'subscription': False, 'count_lessons': 1,
+                                           'lessons': [
+                                               {'id': self.lesson.pk, 'name': 'autoTestLesson', 'description': None,
+                                                'preview': None, 'video': None,
+                                                'course': self.course.pk,
+                                                'owner': self.user.pk}], 'name': 'autoTestUpdate', 'description': None,
+                                           'preview': None,
                                            'owner': self.user.pk})
 
     def test_course_delete(self):
